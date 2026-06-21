@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kế hoạch ôn thi cuối kì</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;--card:#fff;--ink:#172033;--muted:#657083;--line:#e7eaf2;
+      --org:#ec4899;--org-soft:#fce7f3;--phy:#2563eb;--phy-soft:#dbeafe;
+      --hl:#7c3aed;--hl-soft:#ede9fe;--qttp:#059669;--qttp-soft:#d1fae5;
+      --elec:#64748b;--elec-soft:#f1f5f9;--tn:#f59e0b;--tn-soft:#fef3c7;
+      --shadow:0 18px 45px rgba(23,32,51,.09);--radius:24px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(135deg,#fff1f8 0%,#eff6ff 45%,#fff7ed 100%);color:var(--ink);line-height:1.58}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:auto;padding:28px 0 54px}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-bottom:22px}.card{background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.8);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+    .hero-main{padding:34px;position:relative;overflow:hidden}.hero-main:after{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(236,72,153,.22),transparent 68%)}
+    .badge{display:inline-flex;gap:8px;align-items:center;border-radius:999px;background:var(--org-soft);color:#be185d;font-weight:800;font-size:14px;padding:8px 13px} h1{font-size:clamp(30px,4vw,48px);line-height:1.1;margin:16px 0 12px}.lead{font-size:18px;color:var(--muted);max-width:760px;margin:0}
+    .hero-side{padding:24px}.count{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.mini{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.mini b{display:block;font-size:24px}.mini span{font-size:13px;color:var(--muted);font-weight:700}
+    .nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 24px}.nav a{text-decoration:none;color:#334155;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-weight:800;font-size:14px;box-shadow:0 6px 18px rgba(0,0,0,.04)}
+    h2{font-size:28px;margin:34px 0 14px}.grid{display:grid;gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .panel{padding:22px}.subject{border-left:7px solid var(--line)}.subject h3,.day h3{margin:0 0 8px;font-size:20px}.subject p,.day p{margin:6px 0;color:var(--muted)}.pill{display:inline-block;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:900;margin-bottom:10px}.org{border-left-color:var(--org)}.org .pill{background:var(--org-soft);color:#be185d}.phy{border-left-color:var(--phy)}.phy .pill{background:var(--phy-soft);color:#1d4ed8}.hl{border-left-color:var(--hl)}.hl .pill{background:var(--hl-soft);color:#6d28d9}.qttp{border-left-color:var(--qttp)}.qttp .pill{background:var(--qttp-soft);color:#047857}.elec{border-left-color:var(--elec)}.elec .pill{background:var(--elec-soft);color:#475569}.tn{border-left-color:var(--tn)}.tn .pill{background:var(--tn-soft);color:#b45309}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}th,td{text-align:left;padding:14px 15px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f8fafc;color:#475569;font-size:13px;text-transform:uppercase;letter-spacing:.04em}tr:last-child td{border-bottom:none}.time{font-weight:900;white-space:nowrap}.focus{font-weight:900}.tag{display:inline-block;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:900;background:#f1f5f9;color:#475569}.tag.org{background:var(--org-soft);color:#be185d;border:0}.tag.phy{background:var(--phy-soft);color:#1d4ed8;border:0}.tag.hl{background:var(--hl-soft);color:#6d28d9;border:0}.tag.qttp{background:var(--qttp-soft);color:#047857;border:0}.tag.elec{background:var(--elec-soft);color:#475569;border:0}.tag.tn{background:var(--tn-soft);color:#b45309;border:0}
+    .day{padding:20px}.day-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.date{font-size:22px;font-weight:950}.note{background:#fff7ed;border:1px solid #fed7aa;border-radius:18px;padding:16px;color:#7c2d12}.warn{background:#fff1f2;border:1px solid #fecdd3;color:#9f1239}.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#14532d}.check li{margin:8px 0}.footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:860px){.hero,.grid.two,.grid.three{grid-template-columns:1fr}.hero-main{padding:26px}th:nth-child(4),td:nth-child(4){display:none}.wrap{width:min(100% - 20px,1180px)}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-main card">
+        <span class="badge">🔥 Bản ưu tiên Hóa hữu cơ nhiều nhất</span>
+        <h1>Kế hoạch ôn thi cuối kì<br>21/6 tối → 09/7</h1>
+        <p class="lead">Kế hoạch đã chỉnh theo đúng tình hình của bạn: <b>Hóa hữu cơ khó nhất nên chiếm nhiều thời gian nhất</b>, Vật lý 3 chưa có gốc nên cần xây nền, Hóa lý 1 cần đủ 2 ngày, QTTB II chỉ xem công thức, Kỹ thuật điện ít thời gian nhất.</p>
+      </div>
+      <aside class="hero-side card">
+        <h3 style="margin:0 0 8px;font-size:22px">Tỉ lệ thời gian nên chia</h3>
+        <div class="count">
+          <div class="mini"><b>35%</b><span>Hóa hữu cơ</span></div>
+          <div class="mini"><b>25%</b><span>Vật lý 3</span></div>
+          <div class="mini"><b>18%</b><span>Hóa lý 1</span></div>
+          <div class="mini"><b>22%</b><span>Các môn còn lại</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <nav class="nav">
+      <a href="#priority">Ưu tiên</a><a href="#daily">Lịch từng ngày</a><a href="#organic">Chiến lược Hữu cơ</a><a href="#exam">Ngày thi</a><a href="#checklist">Checklist</a>
+    </nav>
+
+    <section id="priority">
+      <h2>1. Thứ tự ưu tiên mới</h2>
+      <div class="grid three">
+        <div class="panel card subject org"><span class="pill">Ưu tiên 1</span><h3>Hóa hữu cơ</h3><p>Khó nhất, thi 03/7 nhưng phải học từ hôm nay. Mỗi ngày đều có ít nhất 1 ca Hữu cơ.</p></div>
+        <div class="panel card subject phy"><span class="pill">Ưu tiên 2</span><h3>Vật lý đại cương III</h3><p>Chưa có gốc nên không học kiểu đọc công thức. Cần học nền + bài mẫu cơ bản trước.</p></div>
+        <div class="panel card subject hl"><span class="pill">Ưu tiên 3</span><h3>Hóa lý 1</h3><p>Cần đúng 2 ngày tập trung: 30/6 tối + 01/7 trước thi, và học mồi nhẹ từ 24/6.</p></div>
+        <div class="panel card subject qttp"><span class="pill">Ôn nhanh</span><h3>QTTB CNHH II</h3><p>Đang học cải thiện, chỉ cần xem lại công thức + dạng thay số, không chiếm quá nhiều thời gian.</p></div>
+        <div class="panel card subject tn"><span class="pill">Vừa phải</span><h3>TN Hóa lý I & TN Hóa phân tích</h3><p>Ưu tiên công thức xử lý số liệu, sai số, nguyên tắc thí nghiệm, câu hỏi vấn đáp.</p></div>
+        <div class="panel card subject elec"><span class="pill">Ít nhất</span><h3>Kỹ thuật điện</h3><p>Chỉ học phần trọng tâm, công thức và dạng bài hay gặp. Không để môn này ăn thời gian của Hữu cơ.</p></div>
+      </div>
+    </section>
+
+    <section id="daily">
+      <h2>2. Lịch học từng ngày</h2>
+      <table>
+        <thead><tr><th>Ngày</th><th>Sáng</th><th>Chiều</th><th>Tối</th></tr></thead>
+        <tbody>
+          <tr><td class="time">21/6<br>tối</td><td>—</td><td>—</td><td><span class="tag org">Hữu cơ</span> 90p: lập sơ đồ nhóm chức + chuỗi phản ứng. <br><span class="tag phy">Vật lý 3</span> 45p: xem mục lục, xác định chương thi.</td></tr>
+          <tr><td class="time">22/6</td><td><span class="tag org">Hữu cơ</span> Anken/ankyn/aren: phản ứng, điều kiện, nhận biết.</td><td><span class="tag phy">Vật lý 3</span> Xây gốc: công thức nền + 5 bài mẫu dễ.</td><td><span class="tag qttp">QTTB II</span> Chép lại công thức cần nhớ. <br><span class="tag elec">Điện</span> 30–45p xem dạng chính.</td></tr>
+          <tr><td class="time">23/6</td><td><span class="tag phy">Vật lý 3</span> Học nền chương 1 + bài mẫu.</td><td><span class="tag org">Hữu cơ</span> Ancol, phenol, ete: tính chất + chuỗi.</td><td><span class="tag tn">TN Hóa lý</span> Công thức xử lý số liệu + sai số. <br><span class="tag org">Hữu cơ</span> 30p flashcard.</td></tr>
+          <tr><td class="time">24/6</td><td><span class="tag org">Hữu cơ</span> Andehit, xeton, axit, este.</td><td><span class="tag phy">Vật lý 3</span> Chương 2 + bài mẫu cơ bản.</td><td><span class="tag hl">Hóa lý 1</span> Học mồi: công thức nhiệt động/cân bằng. <br><span class="tag qttp">QTTB II</span> 45p công thức.</td></tr>
+          <tr><td class="time">25/6</td><td><span class="tag phy">Vật lý 3</span> Làm đề/bài tổng hợp mức dễ → vừa.</td><td><span class="tag org">Hữu cơ</span> Amin, amino axit, polyme nếu có trong đề cương.</td><td><span class="tag org">Hữu cơ</span> 90p chuỗi phản ứng tổng hợp. <br><span class="tag elec">Điện</span> 30p công thức.</td></tr>
+          <tr><td class="time">26/6</td><td><span class="tag org">Hữu cơ</span> Nhận biết chất + thuốc thử.</td><td><span class="tag phy">Vật lý 3</span> Làm lại bài sai, vá gốc phần yếu.</td><td><span class="tag qttp">QTTB II</span> Tổng hợp công thức 1 tờ A4. <br><span class="tag tn">TN Hóa lý</span> 45p vấn đáp.</td></tr>
+          <tr><td class="time">27/6</td><td><span class="tag org">Hữu cơ</span> Cơ chế/dạng giải thích ngắn, điều kiện phản ứng.</td><td><span class="tag phy">Vật lý 3</span> 1 đề hoặc 15–20 bài trọng tâm.</td><td><span class="tag qttp">QTTB II</span> Xem công thức + bài thay số. <br><span class="tag elec">Điện</span> 45p dạng chính.</td></tr>
+          <tr><td class="time">28/6</td><td><span class="tag qttp">QTTB II</span> Chốt công thức. <br><span class="tag elec">Điện</span> Chốt công thức.</td><td><span class="tag phy">Vật lý 3</span> Công thức + bài mẫu vì thi 30/6.</td><td><span class="tag org">Hữu cơ</span> 60p duy trì chuỗi. Sau đó ngủ sớm.</td></tr>
+          <tr><td class="time">29/6<br>thi 2 môn</td><td><span class="tag elec">Điện</span> Xem nhanh trước thi 12h30.</td><td>12h30 thi Điện. 15h00 thi QTTB II.</td><td><span class="tag phy">Vật lý 3</span> Ôn công thức + bài mẫu. <br><span class="tag tn">TN Hóa lý</span> Xem công thức nhanh.</td></tr>
+          <tr><td class="time">30/6<br>thi 2 môn</td><td>09h30 thi Vật lý 3.</td><td>12h30 thi TN Hóa lý I.</td><td><span class="tag hl">Hóa lý 1</span> Ngày 1/2: tổng ôn công thức + dạng bài chính.</td></tr>
+          <tr><td class="time">01/7<br>thi Hóa lý</td><td><span class="tag hl">Hóa lý 1</span> Ngày 2/2: làm bài mẫu + xem lỗi sai.</td><td>15h00 thi Hóa lý 1.</td><td><span class="tag org">Hữu cơ</span> Bắt đầu dồn mạnh: chuỗi phản ứng + nhận biết.</td></tr>
+          <tr><td class="time">02/7</td><td><span class="tag org">Hữu cơ</span> Tổng ôn nhóm chức, phản ứng đặc trưng.</td><td><span class="tag org">Hữu cơ</span> Làm đề/chuỗi phản ứng/nhận biết.</td><td><span class="tag org">Hữu cơ</span> Chốt bảng thuốc thử + điều kiện, ngủ sớm.</td></tr>
+          <tr><td class="time">03/7<br>thi Hữu cơ</td><td><span class="tag org">Hữu cơ</span> Xem tờ tổng hợp, không học mới.</td><td>Thi Hóa hữu cơ cả ngày.</td><td>Nghỉ hồi sức. Chỉ đọc nhẹ TN Hóa phân tích nếu còn sức.</td></tr>
+          <tr><td class="time">04/7</td><td><span class="tag tn">TN Hóa phân tích</span> Mục đích, nguyên tắc từng bài.</td><td><span class="tag tn">TN Hóa phân tích</span> Công thức chuẩn độ, pha loãng.</td><td><span class="tag tn">TN Hóa phân tích</span> Câu hỏi vấn đáp.</td></tr>
+          <tr><td class="time">05/7</td><td><span class="tag tn">TN Hóa phân tích</span> Axit–bazơ.</td><td><span class="tag tn">TN Hóa phân tích</span> Oxi hóa–khử/tạo phức/kết tủa.</td><td>Làm bảng sai số và công thức chung.</td></tr>
+          <tr><td class="time">06/7</td><td colspan="3"><span class="tag tn">TN Hóa phân tích</span> Làm lại toàn bộ bài tính, công thức kết quả, cách xử lý số liệu.</td></tr>
+          <tr><td class="time">07/7</td><td colspan="3"><span class="tag tn">TN Hóa phân tích</span> Tự vấn đáp từng bài: nguyên tắc, chỉ thị, hiện tượng, sai số.</td></tr>
+          <tr><td class="time">08/7</td><td colspan="3"><span class="tag tn">TN Hóa phân tích</span> Tổng ôn nhẹ, chỉ xem checklist và lỗi sai.</td></tr>
+          <tr><td class="time">09/7</td><td>Ôn nhẹ checklist.</td><td>12h30 thi TN Hóa phân tích.</td><td>Hoàn thành.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="organic">
+      <h2>3. Chiến lược riêng cho Hóa hữu cơ</h2>
+      <div class="grid two">
+        <div class="panel card warn"><h3>Không học Hữu cơ kiểu đọc vở</h3><p>Mỗi buổi phải viết được phản ứng, điều kiện, sản phẩm chính. Học xong nhóm chất nào thì làm ngay 5–10 câu hoặc 1 chuỗi phản ứng.</p></div>
+        <div class="panel card ok"><h3>Cách học 1 ca 90 phút</h3><p><b>30p</b> học phản ứng → <b>40p</b> làm chuỗi/nhận biết → <b>20p</b> chép lỗi sai vào bảng tổng hợp.</p></div>
+      </div>
+      <div class="panel card" style="margin-top:16px">
+        <h3 style="margin-top:0">Thứ tự học Hữu cơ nên theo</h3>
+        <ol class="check">
+          <li>Nhóm chức và phản ứng đặc trưng: anken, ankyn, aren, ancol, phenol, andehit, xeton, axit, este, amin.</li>
+          <li>Chuỗi phản ứng: điều chế qua lại giữa các nhóm chất.</li>
+          <li>Nhận biết: thuốc thử, hiện tượng, phương trình minh họa.</li>
+          <li>Điều kiện phản ứng: nhiệt độ, xúc tác, môi trường, sản phẩm chính/phụ.</li>
+          <li>Làm lại đề/bài cũ, ghi lỗi sai thành 1 tờ “cứu mạng” trước ngày thi.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="exam">
+      <h2>4. Lịch thi cần nhớ</h2>
+      <table>
+        <thead><tr><th>Ngày thi</th><th>Giờ</th><th>Môn</th><th>Phòng</th></tr></thead>
+        <tbody>
+          <tr><td class="time">29/06/2026</td><td>12h30</td><td>Kỹ thuật Điện và Điều khiển quá trình</td><td>D3,5-301</td></tr>
+          <tr><td class="time">29/06/2026</td><td>15h00</td><td>Quá trình và thiết bị CNHH II</td><td>D3-401</td></tr>
+          <tr><td class="time">30/06/2026</td><td>09h30</td><td>Vật lý đại cương III</td><td>D3-401</td></tr>
+          <tr><td class="time">30/06/2026</td><td>12h30</td><td>TN Hóa lý I</td><td>D3-101</td></tr>
+          <tr><td class="time">01/07/2026</td><td>15h00</td><td>Hóa lý 1</td><td>D6-407</td></tr>
+          <tr><td class="time">03/07/2026</td><td>Cả ngày</td><td>Hóa hữu cơ</td><td>C1-302</td></tr>
+          <tr><td class="time">09/07/2026</td><td>12h30</td><td>TN Hóa phân tích</td><td>D3,5-201</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="checklist">
+      <h2>5. Checklist mỗi ngày</h2>
+      <div class="panel card">
+        <ul class="check">
+          <li><b>Hóa hữu cơ:</b> mỗi ngày tối thiểu 1 ca, dù hôm đó bận môn khác.</li>
+          <li><b>Vật lý 3:</b> học từ bài dễ, không nhảy thẳng vào đề khó.</li>
+          <li><b>QTTB II:</b> chỉ cần tờ công thức + bài mẫu thay số, không học lan man.</li>
+          <li><b>Kỹ thuật điện:</b> gom vào các ca ngắn 30–60 phút.</li>
+          <li><b>Hóa lý 1:</b> giữ đúng 2 ngày chính, không để Hữu cơ bị mất hết thời gian.</li>
+          <li><b>Trước mỗi ngày thi:</b> ngủ đủ, chỉ xem lỗi sai và công thức, không học chương mới.</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="footer">Bản cập nhật theo ưu tiên cá nhân: Hóa hữu cơ nhiều thời gian nhất, Vật lý 3 xây gốc, Hóa lý 1 cần 2 ngày.</p>
+  </main>
+</body>
+</html>
