@@ -1,395 +1,75 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#173b6d" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173b6d">
   <title>Thời khóa biểu tuần</title>
   <style>
     :root {
-      --navy: #173b6d;
-      --navy-2: #28558f;
-      --bg: #f4f7fb;
-      --line: #d7e1ee;
-      --text: #17243b;
-      --muted: #66758c;
-      --white: #ffffff;
-      --morning: #fff7dc;
-      --afternoon: #eaf4ff;
-      --purple: #eee5ff;
-      --green: #e2f5e8;
-      --orange: #ffe8dc;
-      --blue: #e2efff;
-      --yellow: #fff1c9;
-      --shadow: 0 12px 30px rgba(34, 61, 95, .12);
+      --navy:#173b6d; --navy-2:#28558f; --bg:#f4f7fb; --line:#d7e1ee;
+      --text:#17243b; --muted:#66758c; --white:#fff; --purple:#eee5ff;
+      --green:#e2f5e8; --orange:#ffe8dc; --blue:#e2efff; --yellow:#fff1c9;
+      --shadow:0 12px 30px rgba(34,61,95,.12);
     }
-
-    * { box-sizing: border-box; }
-
-    html {
-      -webkit-text-size-adjust: 100%;
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing:border-box; }
+    html { -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
     body {
-      margin: 0;
-      min-height: 100vh;
-      padding:
-        max(14px, env(safe-area-inset-top))
-        max(12px, env(safe-area-inset-right))
-        max(18px, env(safe-area-inset-bottom))
-        max(12px, env(safe-area-inset-left));
-      background:
-        radial-gradient(circle at top left, rgba(41, 94, 151, .08), transparent 30%),
-        var(--bg);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-                   "Segoe UI", Arial, sans-serif;
+      margin:0; min-height:100vh;
+      padding:max(14px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right))
+              max(18px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
+      background:radial-gradient(circle at top left,rgba(41,94,151,.08),transparent 30%),var(--bg);
+      color:var(--text); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
     }
-
-    .page {
-      max-width: 1500px;
-      margin: 0 auto;
+    .page { max-width:1500px; margin:0 auto; }
+    .hero { background:linear-gradient(135deg,var(--navy),var(--navy-2)); color:#fff; border-radius:24px; padding:22px 20px; box-shadow:var(--shadow); margin-bottom:16px; }
+    h1 { margin:0; text-align:center; font-size:clamp(28px,5vw,46px); letter-spacing:.04em; line-height:1.12; }
+    .subtitle { margin-top:8px; text-align:center; opacity:.88; font-size:clamp(13px,2vw,15px); }
+    .now-line { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:15px; }
+    .pill { padding:7px 11px; border-radius:999px; background:rgba(255,255,255,.15); font-size:13px; font-weight:750; }
+    .today-panel { background:var(--white); border-radius:22px; padding:18px; box-shadow:var(--shadow); margin-bottom:16px; }
+    .panel-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:12px; }
+    .panel-head h2 { margin:0; color:var(--navy); font-size:21px; }
+    .panel-note { color:var(--muted); font-size:13px; margin-top:3px; }
+    .today-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; }
+    .week-wrap { background:var(--white); border-radius:22px; padding:16px; box-shadow:var(--shadow); overflow:hidden; }
+    .week-grid { display:grid; grid-template-columns:repeat(5,minmax(210px,1fr)); gap:10px; overflow-x:auto; padding-bottom:5px; }
+    .day { min-width:210px; border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#f9fbfe; }
+    .day.today { border:2px solid var(--navy-2); box-shadow:0 5px 15px rgba(40,85,143,.14); }
+    .day-head { background:var(--navy); color:#fff; padding:12px; text-align:center; font-weight:850; }
+    .day-date { display:block; margin-top:3px; font-size:11px; opacity:.82; font-weight:650; }
+    .day-body { padding:10px; display:flex; flex-direction:column; gap:9px; }
+    .course { border-radius:13px; padding:11px; box-shadow:inset 0 0 0 1px rgba(30,60,100,.08); }
+    .course.c1 { background:var(--purple); } .course.c2 { background:var(--green); }
+    .course.c3 { background:var(--orange); } .course.c4 { background:var(--blue); }
+    .course.c5 { background:var(--yellow); }
+    .course.cancelled { background:#f1f3f6; color:#7a8494; text-decoration-color:#c23d4b; }
+    .course.ongoing { outline:3px solid #2e9b57; }
+    .course.finished { opacity:.62; }
+    .course-name { font-size:15px; font-weight:850; line-height:1.3; }
+    .course-code { color:#53627a; font-size:11px; font-weight:800; margin-top:3px; }
+    .meta { display:grid; gap:4px; margin-top:8px; color:#53627a; font-size:12px; font-weight:700; }
+    .badge { display:inline-block; width:max-content; margin-top:8px; padding:4px 8px; border-radius:999px; background:rgba(255,255,255,.68); font-size:11px; font-weight:850; text-decoration:none; }
+    .badge.cancelled { color:#aa2635; background:#ffe4e7; }
+    .badge.ongoing { color:#176f36; background:#dff5e6; }
+    .badge.upcoming { color:#205f9d; background:#e4f1ff; }
+    .badge.finished { color:#66758c; background:#edf0f4; }
+    .empty { color:var(--muted); text-align:center; padding:22px 8px; font-size:13px; font-style:italic; }
+    .legend { display:flex; flex-wrap:wrap; justify-content:center; gap:7px 14px; margin-top:13px; color:var(--muted); font-size:12px; }
+    .legend b { color:var(--text); }
+    @media (max-width:760px) {
+      body { padding-top:max(10px,env(safe-area-inset-top)); }
+      .hero { border-radius:20px; padding:19px 13px; }
+      h1 { font-size:clamp(27px,9vw,37px); letter-spacing:.02em; }
+      .today-panel,.week-wrap { border-radius:18px; padding:13px; }
+      .week-grid { display:block; overflow:visible; }
+      .day { margin-bottom:12px; }
+      .day-body { display:grid; grid-template-columns:1fr; }
     }
-
-    .hero {
-      background: linear-gradient(135deg, var(--navy), var(--navy-2));
-      color: white;
-      border-radius: 24px;
-      padding: 24px 20px;
-      box-shadow: var(--shadow);
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      margin: 0;
-      text-align: center;
-      font-size: clamp(28px, 5vw, 48px);
-      letter-spacing: .055em;
-      line-height: 1.12;
-    }
-
-    .subtitle {
-      margin-top: 8px;
-      text-align: center;
-      opacity: .86;
-      font-size: clamp(13px, 2vw, 15px);
-    }
-
-    .view-note {
-      display: none;
-      margin-top: 12px;
-      text-align: center;
-      font-size: 12px;
-      opacity: .8;
-    }
-
-    /* ===== LANDSCAPE / LARGE SCREEN WEEK GRID ===== */
-    .desktop-view {
-      background: var(--white);
-      border-radius: 22px;
-      padding: 16px;
-      box-shadow: var(--shadow);
-    }
-
-    .scroll {
-      overflow-x: auto;
-      border-radius: 16px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .timetable {
-      display: grid;
-      grid-template-columns: 108px repeat(5, minmax(170px, 1fr));
-      grid-template-rows:
-        62px
-        48px
-        66px 66px 66px
-        48px
-        66px 66px 66px 66px 66px 66px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      min-width: 1010px;
-    }
-
-    .cell {
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 9px;
-      background: white;
-    }
-
-    .head {
-      background: var(--navy);
-      color: white;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 16px;
-      letter-spacing: .02em;
-    }
-
-    .section {
-      grid-column: 1 / 7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      font-weight: 850;
-      color: var(--navy);
-      letter-spacing: .08em;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section.morning { grid-row: 2; background: var(--morning); }
-    .section.afternoon { grid-row: 6; background: var(--afternoon); }
-
-    .time {
-      background: #f8fbff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      font-weight: 800;
-      color: var(--navy);
-      font-size: 13px;
-      line-height: 1.35;
-    }
-
-    .time span {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 700;
-      margin-top: 3px;
-    }
-
-    .course {
-      margin: 6px;
-      border-radius: 13px;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      font-weight: 800;
-      line-height: 1.28;
-      box-shadow: inset 0 0 0 1px rgba(30, 60, 100, .08);
-      z-index: 2;
-      font-size: 14px;
-    }
-
-    .course small {
-      display: block;
-      margin-top: 6px;
-      font-size: 11px;
-      font-weight: 750;
-      color: #53627a;
-    }
-
-    .c1 { background: var(--purple); }
-    .c2 { background: var(--green); }
-    .c3 { background: var(--orange); }
-    .c4 { background: var(--blue); }
-    .c5 { background: var(--yellow); }
-
-    .empty {
-      background:
-        linear-gradient(135deg, rgba(230,238,248,.22) 25%, transparent 25%) -8px 0/16px 16px,
-        linear-gradient(225deg, rgba(230,238,248,.22) 25%, transparent 25%) -8px 0/16px 16px,
-        linear-gradient(315deg, rgba(230,238,248,.22) 25%, transparent 25%) 0 0/16px 16px,
-        linear-gradient(45deg, rgba(230,238,248,.22) 25%, #fff 25%) 0 0/16px 16px;
-    }
-
-    .legend {
-      margin-top: 14px;
-      display: flex;
-      gap: 8px 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 12px;
-      text-align: center;
-    }
-
-    .legend b { color: var(--text); }
-
-    /* ===== PORTRAIT MOBILE CARDS ===== */
-    .mobile-view {
-      display: none;
-    }
-
-    .day-card {
-      background: var(--white);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      margin-bottom: 14px;
-    }
-
-    .day-title {
-      background: linear-gradient(135deg, var(--navy), var(--navy-2));
-      color: white;
-      padding: 14px 16px;
-      font-size: 20px;
-      font-weight: 850;
-      letter-spacing: .035em;
-    }
-
-    .session {
-      padding: 14px;
-    }
-
-    .session + .session {
-      border-top: 1px solid var(--line);
-    }
-
-    .session-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      border-radius: 999px;
-      padding: 7px 11px;
-      margin-bottom: 10px;
-      color: var(--navy);
-      font-size: 13px;
-      font-weight: 850;
-      letter-spacing: .05em;
-    }
-
-    .session-label.morning { background: var(--morning); }
-    .session-label.afternoon { background: var(--afternoon); }
-
-    .mobile-course {
-      border-radius: 16px;
-      padding: 14px;
-      margin-top: 9px;
-      box-shadow: inset 0 0 0 1px rgba(30, 60, 100, .08);
-    }
-
-    .mobile-course:first-of-type {
-      margin-top: 0;
-    }
-
-    .mobile-course .name {
-      font-size: 17px;
-      font-weight: 850;
-      line-height: 1.3;
-    }
-
-    .mobile-course .meta {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 5px;
-      margin-top: 9px;
-      color: #53627a;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .mobile-course .meta span::before {
-      display: inline-block;
-      width: 22px;
-      color: var(--navy);
-    }
-
-    .mobile-course .time-meta::before { content: "◷"; }
-    .mobile-course .room-meta::before { content: "⌖"; }
-    .mobile-course .week-meta::before { content: "◫"; }
-
-    .free {
-      color: var(--muted);
-      text-align: center;
-      padding: 10px;
-      font-size: 14px;
-      font-style: italic;
-    }
-
-    /* Portrait phones: show cards */
-    @media (max-width: 760px) and (orientation: portrait) {
-      body { padding-top: max(10px, env(safe-area-inset-top)); }
-      .hero {
-        border-radius: 20px;
-        padding: 20px 14px;
-      }
-      h1 {
-        font-size: clamp(27px, 9vw, 38px);
-        letter-spacing: .025em;
-      }
-      .view-note { display: block; }
-      .desktop-view { display: none; }
-      .mobile-view { display: block; }
-    }
-
-    /* Landscape phones: compact weekly grid */
-    @media (max-height: 520px) and (orientation: landscape) {
-      body {
-        padding: 8px 10px;
-      }
-      .hero {
-        padding: 12px 16px;
-        margin-bottom: 10px;
-        border-radius: 16px;
-      }
-      h1 { font-size: 24px; }
-      .subtitle { margin-top: 4px; font-size: 11px; }
-      .desktop-view {
-        padding: 8px;
-        border-radius: 16px;
-      }
-      .timetable {
-        grid-template-columns: 84px repeat(5, minmax(146px, 1fr));
-        grid-template-rows:
-          46px
-          34px
-          52px 52px 52px
-          34px
-          52px 52px 52px 52px 52px 52px;
-        min-width: 820px;
-      }
-      .head { font-size: 12px; }
-      .section { font-size: 13px; }
-      .time { font-size: 10px; }
-      .time span { font-size: 9px; }
-      .course {
-        margin: 4px;
-        padding: 6px;
-        border-radius: 9px;
-        font-size: 10px;
-      }
-      .course small {
-        margin-top: 3px;
-        font-size: 8px;
-      }
-      .legend {
-        margin-top: 7px;
-        font-size: 9px;
-      }
-    }
-
     @media print {
-      @page { size: landscape; margin: 7mm; }
-      body { background: white; padding: 0; }
-      .hero {
-        box-shadow: none;
-        color: var(--navy);
-        background: white;
-        padding: 0 0 10px;
-        margin: 0;
-      }
-      .subtitle { color: var(--muted); }
-      .desktop-view {
-        display: block !important;
-        box-shadow: none;
-        padding: 0;
-      }
-      .mobile-view { display: none !important; }
-      .scroll { overflow: visible; }
-      .timetable { min-width: 0; }
+      @page { size:landscape; margin:7mm; }
+      body { background:#fff; padding:0; } .hero,.today-panel,.week-wrap { box-shadow:none; }
+      .today-panel { display:none; } .week-grid { overflow:visible; }
     }
   </style>
 </head>
@@ -397,239 +77,147 @@
   <main class="page">
     <header class="hero">
       <h1>THỜI KHÓA BIỂU TUẦN</h1>
-      <div class="subtitle">Học kỳ 2026.1 · Đã bỏ môn “Đồ họa kỹ thuật cơ bản” vì đã hủy</div>
-      <div class="view-note">Xoay ngang để xem toàn bộ lịch dạng bảng tuần</div>
+      <div class="subtitle">Học kỳ 2026.1 · Giờ Việt Nam (Asia/Ho_Chi_Minh)</div>
+      <div class="now-line">
+        <span class="pill" id="clock">Đang lấy thời gian…</span>
+        <span class="pill" id="weekInfo">Đang tính tuần học…</span>
+      </div>
     </header>
 
-    <!-- LANDSCAPE / TABLET / DESKTOP -->
-    <section class="desktop-view">
-      <div class="scroll">
-        <div class="timetable">
-          <div class="cell head" style="grid-column:1;grid-row:1">THỜI GIAN</div>
-          <div class="cell head" style="grid-column:2;grid-row:1">THỨ 2</div>
-          <div class="cell head" style="grid-column:3;grid-row:1">THỨ 3</div>
-          <div class="cell head" style="grid-column:4;grid-row:1">THỨ 4</div>
-          <div class="cell head" style="grid-column:5;grid-row:1">THỨ 5</div>
-          <div class="cell head" style="grid-column:6;grid-row:1">THỨ 6</div>
-
-          <div class="section morning">BUỔI SÁNG</div>
-
-          <div class="cell time" style="grid-column:1;grid-row:3">Tiết 1–2<span>06:45–08:15</span></div>
-          <div class="cell time" style="grid-column:1;grid-row:4">Tiết 3–4<span>08:25–10:05</span></div>
-          <div class="cell time" style="grid-column:1;grid-row:5">Tiết 5–6<span>10:15–11:45</span></div>
-
-          <div class="cell empty" style="grid-column:2;grid-row:3/6"></div>
-          <div class="cell empty" style="grid-column:3;grid-row:3/6"></div>
-          <div class="cell empty" style="grid-column:4;grid-row:3/6"></div>
-          <div class="cell empty" style="grid-column:5;grid-row:3/6"></div>
-          <div class="cell empty" style="grid-column:6;grid-row:3/6"></div>
-
-          <div class="course c4" style="grid-column:5;grid-row:3/5">
-            Tin học đại cương
-            <small>06:45–10:05 · GD-B1</small>
-          </div>
-
-          <div class="course c2" style="grid-column:6;grid-row:3/6">
-            Thí nghiệm chuyên ngành hóa dược I
-            <small>07:30–11:45 · C5-308</small>
-          </div>
-
-          <div class="section afternoon">BUỔI CHIỀU</div>
-
-          <div class="cell time" style="grid-column:1;grid-row:7">Tiết 1<span>12:30–13:15</span></div>
-          <div class="cell time" style="grid-column:1;grid-row:8">Tiết 2<span>13:15–14:00</span></div>
-          <div class="cell time" style="grid-column:1;grid-row:9">Tiết 3<span>14:10–14:55</span></div>
-          <div class="cell time" style="grid-column:1;grid-row:10">Tiết 4<span>15:05–15:50</span></div>
-          <div class="cell time" style="grid-column:1;grid-row:11">Tiết 5<span>16:00–16:45</span></div>
-          <div class="cell time" style="grid-column:1;grid-row:12">Tiết 6<span>16:45–17:30</span></div>
-
-          <div class="cell empty" style="grid-column:2;grid-row:7/13"></div>
-          <div class="cell empty" style="grid-column:3;grid-row:7/13"></div>
-          <div class="cell empty" style="grid-column:4;grid-row:7/13"></div>
-          <div class="cell empty" style="grid-column:5;grid-row:7/13"></div>
-          <div class="cell empty" style="grid-column:6;grid-row:7/13"></div>
-
-          <div class="course c1" style="grid-column:2;grid-row:7/10">
-            Cơ sở kỹ thuật bào chế
-            <small>12:30–14:55 · D9-505</small>
-          </div>
-          <div class="course c4" style="grid-column:2;grid-row:10/13">
-            Phân tích cấu trúc bằng phổ
-            <small>15:05–17:30 · D9-505</small>
-          </div>
-
-          <div class="course c2" style="grid-column:3;grid-row:7/10">
-            Tin học đại cương — TN
-            <small>12:30–15:00 · B1-206</small>
-          </div>
-          <div class="course c5" style="grid-column:3;grid-row:11/13">
-            Xác suất thống kê
-            <small>16:00–17:30 · D9-206</small>
-          </div>
-
-          <div class="course c3" style="grid-column:4;grid-row:7/11">
-            Hóa học bảo vệ thực vật
-            <small>12:30–15:50 · D8-102</small>
-          </div>
-
-          <div class="course c1" style="grid-column:5;grid-row:7/10">
-            Hóa dược đại cương
-            <small>12:30–14:55 · D9-506</small>
-          </div>
-          <div class="course c2" style="grid-column:5;grid-row:10/13">
-            Hóa sinh
-            <small>15:05–17:30 · D9-506</small>
-          </div>
-
-          <div class="course c3" style="grid-column:6;grid-row:7/11">
-            Các quá trình cơ bản tổng hợp hữu cơ, hóa dược
-            <small>12:30–15:50 · D9-504</small>
-          </div>
-        </div>
+    <section class="today-panel">
+      <div class="panel-head">
+        <div><h2>Lịch hôm nay</h2><div class="panel-note" id="todayNote"></div></div>
       </div>
-
-      <div class="legend">
-        <span><b>Tuần học chung:</b> 2–9, 11–18</span>
-        <span><b>TN Tin học:</b> tuần 9, 12, 14, 16, 18</span>
-        <span><b>TN Hóa dược:</b> tuần 3–9, 11–14</span>
-      </div>
+      <div class="today-list" id="todayList"></div>
     </section>
 
-    <!-- PORTRAIT MOBILE -->
-    <section class="mobile-view">
-      <article class="day-card">
-        <div class="day-title">THỨ 2</div>
-        <div class="session">
-          <div class="session-label morning">☀ BUỔI SÁNG</div>
-          <div class="free">Không có lịch học</div>
-        </div>
-        <div class="session">
-          <div class="session-label afternoon">◐ BUỔI CHIỀU</div>
-          <div class="mobile-course c1">
-            <div class="name">Cơ sở kỹ thuật bào chế</div>
-            <div class="meta">
-              <span class="time-meta">12:30–14:55</span>
-              <span class="room-meta">D9-505</span>
-              <span class="week-meta">Tuần 2–9, 11–18</span>
-            </div>
-          </div>
-          <div class="mobile-course c4">
-            <div class="name">Phân tích cấu trúc bằng phổ</div>
-            <div class="meta">
-              <span class="time-meta">15:05–17:30</span>
-              <span class="room-meta">D9-505</span>
-              <span class="week-meta">Tuần 2–9, 11–18</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="day-card">
-        <div class="day-title">THỨ 3</div>
-        <div class="session">
-          <div class="session-label morning">☀ BUỔI SÁNG</div>
-          <div class="free">Không có lịch học</div>
-        </div>
-        <div class="session">
-          <div class="session-label afternoon">◐ BUỔI CHIỀU</div>
-          <div class="mobile-course c2">
-            <div class="name">Tin học đại cương — Thí nghiệm</div>
-            <div class="meta">
-              <span class="time-meta">12:30–15:00</span>
-              <span class="room-meta">B1-206</span>
-              <span class="week-meta">Tuần 9, 12, 14, 16, 18</span>
-            </div>
-          </div>
-          <div class="mobile-course c5">
-            <div class="name">Xác suất thống kê</div>
-            <div class="meta">
-              <span class="time-meta">16:00–17:30</span>
-              <span class="room-meta">D9-206</span>
-              <span class="week-meta">Tuần 2–9, 11–18</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="day-card">
-        <div class="day-title">THỨ 4</div>
-        <div class="session">
-          <div class="session-label morning">☀ BUỔI SÁNG</div>
-          <div class="free">Không có lịch học</div>
-        </div>
-        <div class="session">
-          <div class="session-label afternoon">◐ BUỔI CHIỀU</div>
-          <div class="mobile-course c3">
-            <div class="name">Hóa học bảo vệ thực vật</div>
-            <div class="meta">
-              <span class="time-meta">12:30–15:50</span>
-              <span class="room-meta">D8-102</span>
-              <span class="week-meta">Tuần 2–9, 11–18</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="day-card">
-        <div class="day-title">THỨ 5</div>
-        <div class="session">
-          <div class="session-label morning">☀ BUỔI SÁNG</div>
-          <div class="mobile-course c4">
-            <div class="name">Tin học đại cương</div>
-            <div class="meta">
-              <span class="time-meta">06:45–10:05</span>
-              <span class="room-meta">GD-B1</span>
-              <span class="week-meta">Tuần 2–9, 11–18</span>
-            </div>
-          </div>
-        </div>
-        <div class="session">
-          <div class="session-label afternoon">◐ BUỔI CHIỀU</div>
-          <div class="mobile-course c1">
-            <div class="name">Hóa dược đại cương</div>
-            <div class="meta">
-              <span class="time-meta">12:30–14:55</span>
-              <span class="room-meta">D9-506</span>
-              <span class="week-meta">Tuần 2–9, 11–18</span>
-            </div>
-          </div>
-          <div class="mobile-course c2">
-            <div class="name">Hóa sinh</div>
-            <div class="meta">
-              <span class="time-meta">15:05–17:30</span>
-              <span class="room-meta">D9-506</span>
-              <span class="week-meta">Tuần 2–9, 11–18</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="day-card">
-        <div class="day-title">THỨ 6</div>
-        <div class="session">
-          <div class="session-label morning">☀ BUỔI SÁNG</div>
-          <div class="mobile-course c2">
-            <div class="name">Thí nghiệm chuyên ngành hóa dược I</div>
-            <div class="meta">
-              <span class="time-meta">07:30–11:45</span>
-              <span class="room-meta">C5-308</span>
-              <span class="week-meta">Tuần 3–9, 11–14</span>
-            </div>
-          </div>
-        </div>
-        <div class="session">
-          <div class="session-label afternoon">◐ BUỔI CHIỀU</div>
-          <div class="mobile-course c3">
-            <div class="name">Các quá trình cơ bản tổng hợp hữu cơ, hóa dược</div>
-            <div class="meta">
-              <span class="time-meta">12:30–15:50</span>
-              <span class="room-meta">D9-504</span>
-              <span class="week-meta">Tuần 2–9, 11–18</span>
-            </div>
-          </div>
-        </div>
-      </article>
+    <section class="week-wrap">
+      <div class="panel-head">
+        <div><h2 id="weekTitle">Lịch tuần này</h2><div class="panel-note">Chỉ hiển thị môn có học đúng tuần; buổi nghỉ được đánh dấu riêng.</div></div>
+      </div>
+      <div class="week-grid" id="weekGrid"></div>
+      <div class="legend">
+        <span><b>Lịch chung:</b> tuần 2–9, 11–18</span>
+        <span><b>Computer Networks TN:</b> tuần 7, 9, 12, 14, 16</span>
+        <span><b>Mốc tuần 1:</b> 31/08/2026</span>
+      </div>
     </section>
   </main>
+
+  <script>
+    "use strict";
+    const TIME_ZONE = "Asia/Ho_Chi_Minh";
+    const SEMESTER_START_UTC = Date.UTC(2026, 7, 31);
+    const DAY_MS = 86400000;
+
+    const schedule = [
+      { id:"os", name:"Operating System", code:"IT3070E", type:"LT+BT", weekday:2, start:"14:10", end:"17:30", room:"C7-223", weeks:"2-9,11-18", cancelledDates:["2026-09-08"], color:"c1" },
+      { id:"network-lab", name:"Computer Networks", code:"IT3080E", type:"TN", weekday:2, start:"09:15", end:"11:45", room:"B1-405", weeks:"7,9,12,14,16", color:"c2" },
+      { id:"system-analysis", name:"Phân tích thiết kế hệ thống", code:"IT3120E", type:"LT+BT", weekday:3, start:"09:20", end:"11:45", room:"C7-115", weeks:"2-9,11-18", color:"c3" },
+      { id:"mobile", name:"Mobile Programming", code:"IT4785E", type:"LT+BT", weekday:3, start:"12:30", end:"14:55", room:"D7-201", weeks:"2-9,11-18", color:"c4" },
+      { id:"hcm-bt", name:"Tư tưởng Hồ Chí Minh", code:"SSH1151", type:"BT", weekday:3, start:"15:05", end:"17:30", room:"D6-306", weeks:"3,5,7,9,12,14,16,18", color:"c5" },
+      { id:"hcm-lt", name:"Tư tưởng Hồ Chí Minh", code:"SSH1151", type:"LT", weekday:3, start:"15:05", end:"17:30", room:"D6-306", weeks:"2,4,6,8,11,13,15,17", color:"c5" },
+      { id:"security", name:"Nhập môn An toàn thông tin", code:"IT4010E", type:"LT+BT", weekday:4, start:"12:30", end:"15:50", room:"C7-223", weeks:"2-9,11-18", cancelledDates:["2026-09-10"], color:"c2" },
+      { id:"pingpong", name:"Bóng bàn 1", code:"PE2401", type:"LT+BT", weekday:5, start:"08:00", end:"09:00", room:"NTD", weeks:"2-9,11-18", color:"c5" },
+      { id:"deep-learning", name:"Introduction to Deep Learning", code:"IT3320E", type:"LT+BT", weekday:5, start:"12:30", end:"14:55", room:"C7-223", weeks:"2-9,11-18", color:"c3" },
+      { id:"network", name:"Computer Networks", code:"IT3080E", type:"LT+BT", weekday:5, start:"15:05", end:"17:30", room:"C7-223", weeks:"2-9,11-18", color:"c1" }
+    ];
+
+    const weekSets = new Map(schedule.map(item => [item.id, parseWeeks(item.weeks)]));
+    const weekdayNames = ["", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"];
+    const statusNames = { cancelled:"Nghỉ học", upcoming:"Sắp học", ongoing:"Đang học", finished:"Đã xong", scheduled:"Có lịch" };
+
+    function parseWeeks(text) {
+      const result = new Set();
+      text.split(",").forEach(part => {
+        const value = part.trim();
+        if (value.includes("-")) {
+          const [from,to] = value.split("-").map(Number);
+          for (let week=from; week<=to; week++) result.add(week);
+        } else if (value) result.add(Number(value));
+      });
+      return result;
+    }
+
+    function getVietnamNow(date = new Date()) {
+      const values = {};
+      new Intl.DateTimeFormat("en-CA", {
+        timeZone:TIME_ZONE, year:"numeric", month:"2-digit", day:"2-digit",
+        hour:"2-digit", minute:"2-digit", second:"2-digit", hourCycle:"h23"
+      }).formatToParts(date).forEach(part => { if (part.type !== "literal") values[part.type] = Number(part.value); });
+      return values;
+    }
+
+    function dateKey(parts) {
+      return `${parts.year}-${String(parts.month).padStart(2,"0")}-${String(parts.day).padStart(2,"0")}`;
+    }
+    function dateKeyFromUTC(date) { return date.toISOString().slice(0,10); }
+    function semesterWeek(parts) {
+      const current = Date.UTC(parts.year, parts.month-1, parts.day);
+      return Math.floor((current-SEMESTER_START_UTC)/(7*DAY_MS))+1;
+    }
+    function weekday(parts) {
+      const value = new Date(Date.UTC(parts.year,parts.month-1,parts.day)).getUTCDay();
+      return value === 0 ? 7 : value;
+    }
+    function minutes(time) { const [h,m] = time.split(":").map(Number); return h*60+m; }
+    function displayDate(key) { const [y,m,d] = key.split("-"); return `${d}/${m}/${y}`; }
+    function mondayOfWeek(week) { return new Date(SEMESTER_START_UTC+(week-1)*7*DAY_MS); }
+
+    function statusFor(item, key, isToday, nowMinutes) {
+      if ((item.cancelledDates || []).includes(key)) return "cancelled";
+      if (!isToday) return "scheduled";
+      if (nowMinutes < minutes(item.start)) return "upcoming";
+      if (nowMinutes <= minutes(item.end)) return "ongoing";
+      return "finished";
+    }
+
+    function courseCard(item, status) {
+      const article = document.createElement("article");
+      article.className = `course ${item.color} ${status}`;
+      const title = document.createElement("div"); title.className="course-name"; title.textContent=item.name;
+      const code = document.createElement("div"); code.className="course-code"; code.textContent=`${item.code} · ${item.type}`;
+      const meta = document.createElement("div"); meta.className="meta";
+      const time = document.createElement("span"); time.textContent=`◷ ${item.start}–${item.end}`;
+      const room = document.createElement("span"); room.textContent=`⌖ ${item.room}`;
+      const weeks = document.createElement("span"); weeks.textContent=`◫ Tuần ${item.weeks}`;
+      const badge = document.createElement("span"); badge.className=`badge ${status}`; badge.textContent=statusNames[status];
+      meta.append(time,room,weeks); article.append(title,code,meta,badge); return article;
+    }
+
+    function render() {
+      const now = getVietnamNow();
+      const key = dateKey(now); const week = semesterWeek(now); const todayWeekday = weekday(now);
+      const nowMinutes = now.hour*60+now.minute;
+      const clockText = new Intl.DateTimeFormat("vi-VN", { timeZone:TIME_ZONE, weekday:"long", day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit", second:"2-digit", hourCycle:"h23" }).format(new Date());
+      document.getElementById("clock").textContent=clockText;
+      document.getElementById("weekInfo").textContent=week>0 ? `Tuần học ${week}` : "Chưa bắt đầu học kỳ";
+      document.getElementById("todayNote").textContent=`${weekdayNames[todayWeekday]}, ${displayDate(key)} · Tuần ${week}`;
+
+      const todayItems = schedule.filter(item => item.weekday===todayWeekday && weekSets.get(item.id).has(week)).sort((a,b)=>minutes(a.start)-minutes(b.start));
+      const todayList = document.getElementById("todayList"); todayList.replaceChildren();
+      if (!todayItems.length) { const empty=document.createElement("div"); empty.className="empty"; empty.textContent="Hôm nay không có lịch học."; todayList.append(empty); }
+      else todayItems.forEach(item => todayList.append(courseCard(item,statusFor(item,key,true,nowMinutes))));
+
+      document.getElementById("weekTitle").textContent=`Lịch tuần ${week}`;
+      const grid=document.getElementById("weekGrid"); grid.replaceChildren();
+      const monday=mondayOfWeek(week);
+      for (let dayNo=1;dayNo<=5;dayNo++) {
+        const dayDate=new Date(monday.getTime()+(dayNo-1)*DAY_MS); const dayKey=dateKeyFromUTC(dayDate);
+        const section=document.createElement("section"); section.className=`day${dayKey===key?" today":""}`;
+        const head=document.createElement("div"); head.className="day-head"; head.textContent=weekdayNames[dayNo];
+        const small=document.createElement("span"); small.className="day-date"; small.textContent=displayDate(dayKey); head.append(small);
+        const body=document.createElement("div"); body.className="day-body";
+        const items=schedule.filter(item => item.weekday===dayNo && weekSets.get(item.id).has(week)).sort((a,b)=>minutes(a.start)-minutes(b.start));
+        if (!items.length) { const empty=document.createElement("div"); empty.className="empty"; empty.textContent="Không có lịch"; body.append(empty); }
+        else items.forEach(item => body.append(courseCard(item,statusFor(item,dayKey,dayKey===key,nowMinutes))));
+        section.append(head,body); grid.append(section);
+      }
+    }
+
+    render();
+    setInterval(render, 1000);
+    window.timetableDebug = { schedule, parseWeeks, getVietnamNow, semesterWeek, weekday, statusFor };
+  </script>
 </body>
 </html>
