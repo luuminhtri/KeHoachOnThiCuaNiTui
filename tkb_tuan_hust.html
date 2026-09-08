@@ -25,8 +25,6 @@
     .hero { background:linear-gradient(135deg,var(--navy),var(--navy-2)); color:#fff; border-radius:24px; padding:22px 20px; box-shadow:var(--shadow); margin-bottom:16px; }
     h1 { margin:0; text-align:center; font-size:clamp(28px,5vw,46px); letter-spacing:.04em; line-height:1.12; }
     .subtitle { margin-top:8px; text-align:center; opacity:.88; font-size:clamp(13px,2vw,15px); }
-    .now-line { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:15px; }
-    .pill { padding:7px 11px; border-radius:999px; background:rgba(255,255,255,.15); font-size:13px; font-weight:750; }
     .today-panel { background:var(--white); border-radius:22px; padding:18px; box-shadow:var(--shadow); margin-bottom:16px; }
     .panel-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:12px; }
     .panel-head h2 { margin:0; color:var(--navy); font-size:21px; }
@@ -75,16 +73,12 @@
   <main class="page">
     <header class="hero">
       <h1>THỜI KHÓA BIỂU TUẦN</h1>
-      <div class="subtitle">Học kỳ 2026.1 · Giờ Việt Nam (Asia/Ho_Chi_Minh)</div>
-      <div class="now-line">
-        <span class="pill" id="clock">Đang lấy thời gian…</span>
-        <span class="pill" id="weekInfo">Đang tính tuần học…</span>
-      </div>
+      <div class="subtitle">Học kỳ 2026.1</div>
     </header>
 
     <section class="today-panel">
       <div class="panel-head">
-        <div><h2>Lịch hôm nay</h2><div class="panel-note" id="todayNote"></div></div>
+        <div><h2>Lịch hôm nay</h2></div>
       </div>
       <div class="today-list" id="todayList"></div>
     </section>
@@ -106,6 +100,7 @@
     "use strict";
     const TIME_ZONE = "Asia/Ho_Chi_Minh";
     const SEMESTER_START_UTC = Date.UTC(2026, 7, 31);
+    const START_TEACHING_WEEK = 2;
     const DAY_MS = 86400000;
 
     const schedule = [
@@ -154,6 +149,9 @@
       const current = Date.UTC(parts.year, parts.month-1, parts.day);
       return Math.floor((current-SEMESTER_START_UTC)/(7*DAY_MS))+1;
     }
+    function teachingWeek(semesterWeekNumber) {
+      return semesterWeekNumber - START_TEACHING_WEEK + 1;
+    }
     function weekday(parts) {
       const value = new Date(Date.UTC(parts.year,parts.month-1,parts.day)).getUTCDay();
       return value === 0 ? 7 : value;
@@ -186,17 +184,13 @@
       const now = getVietnamNow();
       const key = dateKey(now); const week = semesterWeek(now); const todayWeekday = weekday(now);
       const nowMinutes = now.hour*60+now.minute;
-      const clockText = new Intl.DateTimeFormat("vi-VN", { timeZone:TIME_ZONE, weekday:"long", day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit", second:"2-digit", hourCycle:"h23" }).format(new Date());
-      document.getElementById("clock").textContent=clockText;
-      document.getElementById("weekInfo").textContent=week>0 ? `Tuần học ${week}` : "Chưa bắt đầu học kỳ";
-      document.getElementById("todayNote").textContent=`${weekdayNames[todayWeekday]}, ${displayDate(key)} · Tuần ${week}`;
-
       const todayItems = schedule.filter(item => item.weekday===todayWeekday && weekSets.get(item.id).has(week)).sort((a,b)=>minutes(a.start)-minutes(b.start));
       const todayList = document.getElementById("todayList"); todayList.replaceChildren();
       if (!todayItems.length) { const empty=document.createElement("div"); empty.className="empty"; empty.textContent="Hôm nay không có lịch học."; todayList.append(empty); }
       else todayItems.forEach(item => todayList.append(courseCard(item,statusFor(item,true,nowMinutes))));
 
-      document.getElementById("weekTitle").textContent=`Lịch tuần ${week}`;
+      const studyWeek = teachingWeek(week);
+      document.getElementById("weekTitle").textContent=studyWeek > 0 ? `Lịch tuần học thứ ${studyWeek}` : "Lịch học kỳ";
       const grid=document.getElementById("weekGrid"); grid.replaceChildren();
       const monday=mondayOfWeek(week);
       const activeDays = [...new Set(
@@ -217,7 +211,7 @@
 
     render();
     setInterval(render, 1000);
-    window.timetableDebug = { schedule, parseWeeks, getVietnamNow, semesterWeek, weekday, statusFor };
+    window.timetableDebug = { schedule, parseWeeks, getVietnamNow, semesterWeek, teachingWeek, weekday, statusFor };
   </script>
 </body>
 </html>
